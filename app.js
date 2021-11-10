@@ -1,7 +1,7 @@
 
 //Selector
 const number = parseInt(prompt('몇 명이 참가하나요 ?'),10)
-
+if(number){
 const $button = document.querySelector('button');
 const $input = document.querySelector('input');
 const $word = document.querySelector('#word');
@@ -11,8 +11,9 @@ let newWord;   // 새로 입력한 단어
 
 
 // Event Listener
+
 $button.addEventListener('click', () => {
-    if(!word || word[word.length -1] === newWord[0]){
+    if(!word || (word[word.length -1] === newWord[0] && newWord.length === 3)){
         word = newWord;
         $word.textContent = word;
         $input.value = '';
@@ -34,3 +35,4 @@ $input.addEventListener('input',(event) => {
     newWord = event.target.value;
 
 })
+}
