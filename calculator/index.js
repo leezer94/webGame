@@ -1,15 +1,25 @@
 let numOne = '';
 let operator = '';
 let numTwo = '';
+let numThree = 1;
+    // numThree = -numThree
+    // console.log(numThree)
 // Selector
+
 const $operator = document.querySelector('#operator')
 const $result = document.querySelector('#result')
 
 //Function
 const onClickNumber = (e) => {   //고차원 함수 ( higher order function)
+        if(!numOne){
+            if(e.target.value === '-'){
+                numOne = -numOne
+            }
+        }
         if(!operator){
         numOne += e.target.textContent;
         $result.value += e.target.textContent;
+        
         return;
         }
         if(!numTwo){
@@ -19,13 +29,55 @@ const onClickNumber = (e) => {   //고차원 함수 ( higher order function)
         $result.value += e.target.textContent;
     };
 
-const onClickOperator = (op) => () => {
-    if(numOne) {
+const onClickOperator = (op) => (e) => {
+    
+
+    numOne = Number(numOne);
+    numTwo = Number(numTwo);
+    if(numTwo){
+    if(e.target.value === '-'){
+        $result.value = -numOne
+    }
+}
+    if(numTwo){
+        switch(operator){
+            case '+' :
+                $result.value = numOne + numTwo;
+                break;
+            case '-' :
+                $result.value = numOne - numTwo;
+                
+                break;
+            case '*' :
+                $result.value = numOne * numTwo;
+                
+                break;
+            case '/' :
+                $result.value = numOne / numTwo;
+                
+                break;
+             default : 
+             break;    
+        }
+    }
+    
+    
+    $operator.value = '';
+    numOne = $result.value;
+    numTwo = ''
+    if(!numOne){
+        if( operator === '-'){
+           
+        } 
+    }else if(numOne) {
         operator = op;
         $operator.value = op;
-    } else {
+    }else {
         alert('숫자를 먼저 입력하세요.')
+        
     }
+        
+    
 }
 
 
@@ -51,20 +103,26 @@ document.querySelector('#calculate').addEventListener('click',() => {
        switch(operator){
            case '+' :
                $result.value = numOne + numTwo;
-               
                break;
            case '-' :
                $result.value = numOne - numTwo;
+               
                break;
            case '*' :
                $result.value = numOne * numTwo;
+               
                break;
            case '/' :
                $result.value = numOne / numTwo;
+               
                break;
             default : 
             break;    
        } 
+       $operator.value = '';
+       numOne = result.value;
+       operator = ''
+       numTwo = ''
     } else {
         alert('숫자를 먼저 입력하십시오.')
     }
