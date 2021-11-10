@@ -23,18 +23,20 @@ $button.addEventListener('click', () => {
             $order.textContent = order + 1
         }
         $input.value=''
-
+        $input.focus();
     }else {
         if(word[word.length -1] === newWord[0] ){
             word = newWord;
             $word.textContent = word;
-            $input.value = '';
             const order = Number($order.textContent); // 현재 순서
             if(order + 1 > number) {
                 $order.textContent = 1;
             }else {
                 $order.textContent = order + 1
             }
+            $input.value = '';
+            $input.focus();
+
         }else {
             alert('단어가 올바르지 않습니다.')
 
