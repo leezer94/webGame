@@ -37,11 +37,17 @@ form.addEventListener('submit', (e) => {
     const value = input.value;  //  입력값 value 변수에 저장해준다.  same as e.target[0].value;
     input.value = '';            // 지워준다
     const valid = checkInput(value);    // 함수로 value 를 보내준다.
-    if(valid) {
-        tries.push(value);
-        console.log(tries)
-    }else {
-
+    if(!valid) {
+        return;
+    }
+    if(result.join('') === value){      // 사용자 입력 밸류와 결과값.join('')이 같으면 홈런! 
+        logs.textContent = '홈런!';
+        return;
+    }
+    if(tries.length >= 9){  //시도 10 번 이상시 패배 ( 10 번째에 홈런시 tries.length === 9)
+        const message = document.createTextNode(`패배! 정답은 ${result.join('')}`) // 추가할 문구
+        logs.appendChild(message); // 추가할 대상(logs)
+        return;
     }
 
 })
