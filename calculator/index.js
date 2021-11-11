@@ -11,14 +11,12 @@ const $result = document.querySelector('#result')
 
 //Function
 const onClickNumber = (e) => {   //고차원 함수 ( higher order function)
-        if(!numOne){
-            if(e.target.value === '-'){
-                numOne = -numOne
-            }
-        }
+        
         if(!operator){
         numOne += e.target.textContent;
         $result.value += e.target.textContent;
+
+        
         
         return;
         }
@@ -32,13 +30,9 @@ const onClickNumber = (e) => {   //고차원 함수 ( higher order function)
 const onClickOperator = (op) => (e) => {
     
 
-    numOne = Number(numOne);
-    numTwo = Number(numTwo);
-    if(numTwo){
-    if(e.target.value === '-'){
-        $result.value = -numOne
-    }
-}
+    numOne = numOne;
+    numTwo = numTwo;
+  
     if(numTwo){
         switch(operator){
             case '+' :
@@ -92,6 +86,7 @@ document.querySelector('#num-6').addEventListener('click',onClickNumber)
 document.querySelector('#num-7').addEventListener('click',onClickNumber)
 document.querySelector('#num-8').addEventListener('click',onClickNumber)
 document.querySelector('#num-9').addEventListener('click',onClickNumber)
+// document.querySelector('#minus').addEventListener('click',onClickNumber)
 document.querySelector('#plus').addEventListener('click',onClickOperator('+'))
 document.querySelector('#minus').addEventListener('click',onClickOperator('-'))
 document.querySelector('#divide').addEventListener('click',onClickOperator('/'))

@@ -38,7 +38,6 @@ function defeated() {
 }
 //Event
 let outCount = 0;
-
 form.addEventListener('submit', (e) => {
     e.preventDefault() // 기본동작 prevent(refresh)
     const value = input.value;  //  입력값 value 변수에 저장해준다.  same as e.target[0].value;
