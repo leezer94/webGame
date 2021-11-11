@@ -5,7 +5,7 @@ const logs = document.querySelector('.logs')
 
 const numbers = [];     //[1,2,3,4,5,6,7,8,9]
 const result = [];
-const tries = [];
+const tries = []; // 입력값을 기록
 
 //Function
 for(let i=0; i < 9; i++){
@@ -31,10 +31,18 @@ function checkInput(input){     // 검사하는 코드 (따로 분리해주는 �
     }
     return true;
 }
+
+function defeated() {
+    const message = document.createTextNode(`패배! 정답은 ${result.join('')}`) // 추가할 문구
+    logs.appendChild(message); // 추가할 대상(logs)
+}
 //Event
+let outCount = 0;
+
 form.addEventListener('submit', (e) => {
     e.preventDefault() // 기본동작 prevent(refresh)
     const value = input.value;  //  입력값 value 변수에 저장해준다.  same as e.target[0].value;
+    
     input.value = '';            // 지워준다
     const valid = checkInput(value);    // 함수로 value 를 보내준다.
     if(!valid) {
@@ -45,12 +53,39 @@ form.addEventListener('submit', (e) => {
         return;
     }
     if(tries.length >= 9){  //시도 10 번 이상시 패배 ( 10 번째에 홈런시 tries.length === 9)
-        const message = document.createTextNode(`패배! 정답은 ${result.join('')}`) // 추가할 문구
-        logs.appendChild(message); // 추가할 대상(logs)
+       defeated();
         return;
     }
-
-})
+    // 스트라이크 볼 갯수 검사
+    let strikeCount = 0;
+    let ballCount = 0;
+    // result 3146 value: 1234
+    for(let i=0; i < result.length; i++){   // ex) [3,1,4,6] length = 4
+        const index = value.indexOf(result[i]);
+        if(index > -1){ //일치하는 숫자 발견   (index 가 없으면 -1 출력) 즉 true;
+            if(index === i){    // 자릿수도 같음;
+                strikeCount += 1;
+            }else { // 숫자만 같음
+                ballCount += 1;
+            }
+        }
+    }
+    if(strikeCount === 0 && ballCount === 0){
+        outCount ++;
+        logs.append(`${value} : 아웃!`, document.createElement('br'))
+    }else {
+        logs.append(`${value} : ${strikeCount} 스트라이크 ${ballCount} 볼`, document.createElement('br'))
+         // append 로 여러개 동시에 append 가능(문자열, 등등)
+    }
+    if(outCount === 3){
+        defeated();
+        return;
+    }
+    console.log(outCount)
+    console.log(strikeCount)
+    console.log(ballCount)
+    tries.push(value);
+});
 
 
 
